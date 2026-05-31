@@ -1,10 +1,6 @@
-#include <iostream>
-#include <vector>
-#include <string>
-using namespace std;
-
 #include "game.h"
 
+// ================= CLASSE PERSONAGEM =================
 Personagem::Personagem(string nome,int ataque, int defesa, int velocidade, int vida)
 {
     setNome ( nome );
@@ -14,119 +10,73 @@ Personagem::Personagem(string nome,int ataque, int defesa, int velocidade, int v
     setVida ( vida );
 }
 
-int Personagem::setAtaque(int ataque)
-{
-    this->ataque = ataque;
-}
+void Personagem::setNome(string nome) { this->nome = nome; }
+void Personagem::setAtaque(int ataque) { this->ataque = ataque; }
+void Personagem::setDefesa(int defesa) { this->defesa = defesa; }
+void Personagem::setVelocidade(int velocidade) { this->velocidade = velocidade; }
+void Personagem::setVida(int vida) { this->vida = vida; }
 
-int Personagem::setDefesa(int defesa)
-{
-    this->defesa = defesa;
-}
+string Personagem::getNome() { return nome; }
+int Personagem::getAtaque() { return ataque; }
+int Personagem::getDefesa() { return defesa; }
+int Personagem::getVelocidade() { return velocidade; }
+int Personagem::getVida() { return vida; }
 
-int Personagem::setVelocidade(int velocidade)
-{
-    this->velocidade = velocidade;
-}
-
-int Personagem::setVida(int vida)
-{
-    this->vida = vida;
-}
-
-void Personagem::receberDanoP(int danoMonstro)
-{
-    int danoRealP = danoMonstro - this->defesa;
+void Personagem::receberDano(int danoMonstro) {
+    int danoReal = danoMonstro - this->defesa;
     
-    if (danoRealP < 0)
-        danoRealP = 0;
-    this->vida;
-}
-
-void Personagem::atacarP(int vidaMonstro)
-{
-    int ataqueRealP = vidaMonstro - this->ataque;
-}
-
-int Personagem::getAtaque()
-{
-    return ataque;
-}
-
-int Personagem::getDefesa()
-{
-    return defesa;
-}
-
-int Personagem::getVelocidade()
-{
-    return velocidade;
-}
-
-int Personagem::getVida()
-{
-    return vida;
-}
-
-Monstro::Monstro(string nome,int ataque, int defesa, int velocidade, int vida)
-{
-    setNome ( nome );
-    setAtaque ( ataque );
-    setDefesa ( defesa );
-    setVelocidade ( velocidade );
-    setVida ( vida );
-}
-
-int Monstro::setAtaque(int ataque)
-{
-    this->ataque = ataque;
-}
-
-int Monstro::setDefesa(int defesa)
-{
-    this->defesa = defesa;
-}
-
-int Monstro::setVelocidade(int velocidade)
-{
-    this->velocidade = velocidade;
-}
-
-int Monstro::setVida(int vida)
-{
-    this->vida = vida;
-}
-
-void Monstro::receberDanoM(int danoPersonagem)
-{
-    int danoRealM = danoPersonagem - this->defesa;
+    if (danoReal < 0) {
+        danoReal = 0; // A defesa absorveu tudo
+    }
     
-    if (danoRealM < 0)
-        danoRealM = 0;
-    this->vida;
+    this->vida -= danoReal; // Subtrai a vida
+    
+    if (this->vida < 0) {
+        this->vida = 0; // Impede vida negativa
+    }
 }
 
-void Monstro::atacarM(int vidaPersonagem)
-{
-    int ataqueRealM = vidaPersonagem - this->ataque;
+void Personagem::exibirStatus() {
+    cout << "[" << nome << "] Vida: " << vida << " | Ataque: " << ataque 
+         << " | Defesa: " << defesa << " | Velocidade: " << velocidade << endl;
 }
 
-int Monstro::getAtaque()
-{
-    return ataque;
+// ================= CLASSE MONSTRO =================
+
+Monstro::Monstro(string nome, int ataque, int defesa, int velocidade, int vida) {
+    setNome(nome);
+    setAtaque(ataque);
+    setDefesa(defesa);
+    setVelocidade(velocidade);
+    setVida(vida);
 }
 
-int Monstro::getDefesa()
-{
-    return defesa;
+void Monstro::setNome(string nome) { this->nome = nome; }
+void Monstro::setAtaque(int ataque) { this->ataque = ataque; }
+void Monstro::setDefesa(int defesa) { this->defesa = defesa; }
+void Monstro::setVelocidade(int velocidade) { this->velocidade = velocidade; }
+void Monstro::setVida(int vida) { this->vida = vida; }
+
+string Monstro::getNome() { return nome; }
+int Monstro::getAtaque() { return ataque; }
+int Monstro::getDefesa() { return defesa; }
+int Monstro::getVelocidade() { return velocidade; }
+int Monstro::getVida() { return vida; }
+
+void Monstro::receberDano(int danoPersonagem) {
+    int danoReal = danoPersonagem - this->defesa;
+    
+    if (danoReal < 0) {
+        danoReal = 0;
+    }
+    
+    this->vida -= danoReal;
+    
+    if (this->vida < 0) {
+        this->vida = 0;
+    }
 }
 
-int Monstro::getVelocidade()
-{
-    return velocidade;
-}
-
-int Monstro::getVida()
-{
-    return vida;
+void Monstro::exibirStatus() {
+    cout << "[" << nome << "] Vida: " << vida << " | Ataque: " << ataque << endl;
 }
