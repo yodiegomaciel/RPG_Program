@@ -1,3 +1,6 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include <iostream>
 #include <string>
 
@@ -7,21 +10,24 @@ class Personagem
 {
 public:
     Personagem(string nome, int ataque, int defesa, int velocidade, int vida);
-    string setNome( string );
-    int setAtaque( int );
-    int setDefesa( int );
-    int setVelocidade( int );
-    int setVida( int );
-    void atacarP( int);
-    void receberDanoP( int);
+
+    // Setters
+    void setNome(string);
+    void setAtaque(int);
+    void setDefesa(int);
+    void setVelocidade(int);
+    void setVida(int);
+    
+    // Getters
+    string getNome();
     int getAtaque();
     int getDefesa();
     int getVelocidade();
     int getVida();
-    int danoPersonagem();
-    int vidaPersonagem();
-    int ataqueRealP();
-    int danoRealP();
+    
+    // Ações
+    void receberDano(int danoMonstro);
+    void exibirStatus();
 
 private:
     string nome;
@@ -35,21 +41,24 @@ class Monstro
 {
 public:
     Monstro(string nome, int ataque, int defesa, int velocidade, int vida);
-    string setNome( string );
-    int setAtaque( int );
-    int setDefesa( int );
-    int setVelocidade( int );
-    int setVida( int );
-    void atacarM( int );
-    void receberDanoM( int );
+
+    // Setters
+    void setNome(string);
+    void setAtaque(int);
+    void setDefesa(int);
+    void setVelocidade(int);
+    void setVida(int);
+    
+    // Getters
+    string getNome();
     int getAtaque();
     int getDefesa();
     int getVelocidade();
     int getVida();
-    int vidaMonstro( int );
-    int danoMonstro ( int );
-    int ataqueRealM (int );
-    int danoRealM ( int );
+
+    // Ações
+    void receberDano(int danoPersonagem);
+    void exibirStatus();
 
 private:
     string nome;
@@ -59,14 +68,4 @@ private:
     int vida;
 };
 
-/*class Gerenciador
-{
-public:
-    void Start(boolean gameOn);
-    void Pause(boolean pause);
-
-private:
-    boolean gameOn;
-    boolean pause;
-};
-*/
+#endif
